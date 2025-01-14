@@ -16,9 +16,14 @@ const BeerList: React.FC= () => {
                 <BeerCard
                  id={beer.id}
                  key={beer.id}
-                 name= {beer.name}
-                 type= {beer.type}
-                 imageURL= {beer.imageURL}
+                 beer_name= {beer.beer_name}
+                 abv= {beer.abv}
+                 colour= {beer.colour}
+                 body= {beer.body}
+                 bitterness= {beer.bitterness}
+                 release_date= {beer.release_date}
+                 category= {beer.category}
+                 photourl= {beer.photourl}
                  description= {beer.description}
                  onClick={() => navigate(`/beers/${beer.id}`)}
                 />

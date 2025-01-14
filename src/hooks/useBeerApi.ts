@@ -3,9 +3,14 @@ import {getBeers } from '../services/beerService';
 
 interface Beer {
   id: number;
-  name: string;
-  type: string;
-  imageURL: string;
+  beer_name: string;
+  abv: number;
+  colour: string;
+  body: string;
+  bitterness: string;
+  release_date: string;
+  category: string;
+  photourl: string;
   description?: string;
   onClick?: (id: number) => void;
 }
