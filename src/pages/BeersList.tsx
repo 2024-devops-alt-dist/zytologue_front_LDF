@@ -1,22 +1,30 @@
 import React from "react";
-import BeerCard from "../components/BeerCard";
+import BeerCard from '../components/BeerCard';
+import { useBeerAPI } from "../hooks/useBeerApi";
+import { useNavigate } from "react-router-dom";
 
 const BeerList: React.FC= () => {
-    const beers = [
-        {
+    const { beers, loading, error } = useBeerAPI();
+    const navigate = useNavigate();
 
-        }
-    ]
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error}</div>;
+
     return (
-        <div>
-            <h1>Beer List</h1>
-            <div>
-                {beers.map((beer, index) => (
-                    <BeerCard key={index} name={beer.name} type={beer.type} imageURL={beer.imageURL} />
-                ))}
-            </div>
+        <div className="beerList">
+            {beers.map((beer) => (
+                <BeerCard
+                 id={beer.id}
+                 key={beer.id}
+                 name= {beer.name}
+                 type= {beer.type}
+                 imageURL= {beer.imageURL}
+                 description= {beer.description}
+                 onClick={() => navigate(`/beers/${beer.id}`)}
+                />
+            ))}
         </div>
-    )
-}
+    );
+};
 
 export default BeerList;
