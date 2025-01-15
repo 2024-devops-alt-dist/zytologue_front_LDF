@@ -1,19 +1,18 @@
-import React from "react"
+import React from 'react';
 
 interface BeerCardProps {
-    id: number;
-    beer_name: string;
-    abv: number;
-    colour: string;
-    body: string;
-    bitterness: string;
-    release_date: string;
-    category: string;
-    photourl: string;
-    description?: string;
-    onClick?: (id: number) => void;
+  id: number;
+  beer_name: string;
+  abv: number;
+  colour: string;
+  body: string;
+  bitterness: string;
+  release_date: string;
+  category: string;
+  photourl: string;
+  description?: string;
+  onClick?: (id: number) => void;
 }
-
 
 const BeerCard: React.FC<BeerCardProps> = ({
   id,
