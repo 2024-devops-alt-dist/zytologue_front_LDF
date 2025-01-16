@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import BeerList from './pages/BeersList';
 import BreweryList from './pages/BreweriesList';
+import './App.css';
 
 const App: React.FC = () => {
   return (
@@ -12,5 +13,5 @@ const App: React.FC = () => {
       </Routes>
     </Router>
   );
-}
-export default App
+};
+export default App;
