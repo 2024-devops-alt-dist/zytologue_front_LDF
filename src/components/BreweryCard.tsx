@@ -1,34 +1,39 @@
 import React from 'react';
 
 interface BreweryCardProps {
-  id: number;
+  id_brewery: number;
   brewery_name: string;
   country: string;
-  region: string;
   city: string;
-  adress: string;
-  inauguration_date: string;
   onClick?: (id: number) => void;
 }
 
 const BreweryCard: React.FC<BreweryCardProps> = ({
-  id,
+  id_brewery,
   brewery_name,
   country,
-  region,
   city,
-  adress,
-  inauguration_date,
   onClick,
 }) => {
   return (
-    <div className="card" onClick={() => onClick && onClick(id)}>
-      <h2>{brewery_name}</h2>
-      <p>{country}</p>
-      <p>{region}</p>
-      <p>{city}</p>
-      <p>{adress}</p>
-      <p>{inauguration_date}</p>
+    <div className="card lg:card-side bg-base-100 shadow-xl">
+      <div className="card-body">
+        <h2 className="card-title">{brewery_name}</h2>
+        <p>
+          <strong>Country:</strong> {country}
+        </p>
+        <p>
+          <strong>City:</strong> {city}
+        </p>
+        <div className="card-actions justify-end">
+          <button
+            className="btn btn-primary"
+            onClick={() => onClick && onClick(id_brewery)}
+          >
+            More Info
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

@@ -14,15 +14,12 @@ const BreweryList: React.FC = () => {
     <div className="breweryList">
       {breweries.map(brewery => (
         <BreweryCard
-          id={brewery.id}
-          key={brewery.id}
+          id_brewery={brewery.id_brewery}
+          key={brewery.id_brewery}
           brewery_name={brewery.brewery_name}
           country={brewery.country}
-          region={brewery.region}
           city={brewery.city}
-          adress={brewery.adress}
-          inauguration_date={brewery.inauguration_date}
-          onClick={() => navigate(`/breweries/${brewery.id}`)}
+          onClick={() => navigate(`/breweries/${brewery.id_brewery}`)}
         />
       ))}
     </div>
