@@ -1,41 +1,26 @@
 import React from 'react';
 
 interface BeerCardProps {
-  id: number;
+  id_beer: number;
   beer_name: string;
-  abv: number;
-  colour: string;
-  body: string;
-  bitternes: number;
-  release_date: string;
-  id_category: number;
+  abv?: number;
+  bitternes?: number;
   photourl: string;
   description?: string;
   onClick?: (id: number) => void;
 }
 
 const BeerCard: React.FC<BeerCardProps> = ({
-  id,
+  id_beer,
   beer_name,
   abv,
-  colour,
-  body,
   bitternes,
-  release_date,
   photourl,
   description,
   onClick,
 }) => {
-  const formattedDate = new Date(release_date).toLocaleDateString('es-ES', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
   return (
-    <div
-      className="card lg:card-side bg-base-100 shadow-xl"
-      onClick={() => onClick && onClick(id)}
-    >
+    <div className="card lg:card-side bg-base-100 shadow-xl">
       <figure>
         <img src={photourl} alt={beer_name} />
       </figure>
@@ -45,16 +30,7 @@ const BeerCard: React.FC<BeerCardProps> = ({
           <strong>ABV:</strong> {abv}%
         </p>
         <p>
-          <strong>Colour:</strong> {colour}
-        </p>
-        <p>
-          <strong>Body:</strong> {body}
-        </p>
-        <p>
           <strong>Bitterness:</strong> {bitternes}
-        </p>
-        <p>
-          <strong>Release Date:</strong> {formattedDate}
         </p>
         {description && (
           <p>
@@ -62,7 +38,12 @@ const BeerCard: React.FC<BeerCardProps> = ({
           </p>
         )}
         <div className="card-actions justify-end">
-          <button className="btn btn-primary">More Info</button>
+          <button
+            className="btn btn-primary"
+            onClick={() => onClick && onClick(id_beer)}
+          >
+            More Info
+          </button>
         </div>
       </div>
     </div>

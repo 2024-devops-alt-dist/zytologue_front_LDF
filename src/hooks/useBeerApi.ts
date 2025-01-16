@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { getBeers } from '../services/beerService';
 
 interface Beer {
-  id: number;
+  id_beer: number;
   beer_name: string;
   abv: number;
   colour: string;

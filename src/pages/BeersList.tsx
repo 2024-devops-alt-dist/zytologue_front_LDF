@@ -14,18 +14,14 @@ const BeerList: React.FC = () => {
     <div className="beerList">
       {beers.map(beer => (
         <BeerCard
-          id={beer.id}
-          key={beer.id}
+          id_beer={beer.id_beer}
+          key={beer.id_beer}
           beer_name={beer.beer_name}
           abv={beer.abv}
-          colour={beer.colour}
-          body={beer.body}
           bitternes={beer.bitternes}
-          release_date={beer.release_date}
-          id_category={beer.id_category}
           photourl={beer.photourl}
           description={beer.description}
-          onClick={() => navigate(`/beers/${beer.id}`)}
+          onClick={() => navigate(`/beers/${beer.id_beer}`)}
         />
       ))}
     </div>

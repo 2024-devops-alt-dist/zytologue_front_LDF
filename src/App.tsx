@@ -5,12 +5,14 @@ import Homepage from './pages/HomePage';
 import Header from './components/Header';
 import About from './pages/About';
 import './App.css';
+import BeerDetails from './pages/BeerDetails';
 
 const App: React.FC = () => {
   return (
     <Router>
       <Header />
       <Routes>
+        <Route path="/beers/:id" element={<BeerDetails />} />
         <Route path="/about" element={<About />} />
         <Route path="/" element={<Homepage />} />
         <Route path="/breweries" element={<BreweryList />} />
