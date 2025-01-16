@@ -1,13 +1,18 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import BeerList from './pages/BeersList';
 import BreweryList from './pages/BreweriesList';
+import Homepage from './pages/HomePage';
+import Header from './components/Header';
+import About from './pages/About';
 import './App.css';
 
 const App: React.FC = () => {
   return (
     <Router>
+      <Header />
       <Routes>
-        <Route path="/" element={<BeerList />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/" element={<Homepage />} />
         <Route path="/breweries" element={<BreweryList />} />
         <Route path="/beers" element={<BeerList />} />
       </Routes>
