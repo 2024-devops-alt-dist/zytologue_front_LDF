@@ -1,15 +1,22 @@
 import React from 'react';
 import { useBreweryAPI } from '../hooks/useBreweryApi';
+import { useBeerAPI } from '../hooks/useBeerApi';
 import { useParams, useNavigate } from 'react-router-dom';
+import BeerCard from '../components/BeerCard';
 
-const BeerDetails: React.FC = () => {
+const BreweryDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { breweries, loading, error } = useBreweryAPI();
-  const brewery = breweries.find(b => b.id_brewery === parseInt(id || '', 10));
+  const { breweries, breweriesLoading, error } = useBreweryAPI();
+  const { beers, loading: beersLoading, error: beersError } = useBeerAPI();
 
-  if (loading) return <div>Loading...</div>;
+  const brewery = breweries.find(b => b.id_brewery === parseInt(id || '', 10));
+  const breweryBeers = beers.filter(
+    b => b.id_brewery === parseInt(id || '', 10)
+  );
+  if (breweriesLoading || beersLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
+  if (beersError) return <div>Error: {beersError}</div>;
 
   if (!brewery) return <div>brewery not found</div>;
 
@@ -52,9 +59,29 @@ const BeerDetails: React.FC = () => {
             Back to brewery list
           </button>
         </div>
+        <div className="card-body">
+          <h3 className="text-xl font-bold">Beers from this Brewery:</h3>
+          {breweryBeers.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {breweryBeers.map(beer => (
+                <BeerCard
+                  key={beer.id_beer}
+                  id_beer={beer.id_beer}
+                  beer_name={beer.beer_name}
+                  abv={beer.abv}
+                  bitternes={beer.bitternes}
+                  photourl={beer.photourl}
+                  onClick={() => navigate(`/beers/${beer.id_beer}`)}
+                />
+              ))}
+            </div>
+          ) : (
+            <p>No beers found for this brewery.</p>
+          )}
+        </div>
       </div>
     </div>
   );
 };
 
-export default BeerDetails;
+export default BreweryDetails;

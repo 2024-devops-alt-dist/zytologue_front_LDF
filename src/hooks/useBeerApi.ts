@@ -12,6 +12,7 @@ interface Beer {
   id_category: number;
   photourl: string;
   description?: string;
+  id_brewery: number;
   onClick?: (id: number) => void;
 }
 

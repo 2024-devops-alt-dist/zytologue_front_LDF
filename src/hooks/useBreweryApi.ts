@@ -14,7 +14,7 @@ interface Brewery {
 
 export const useBreweryAPI = () => {
   const [breweries, setBreweries] = useState<Brewery[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [breweriesLoading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -31,5 +31,5 @@ export const useBreweryAPI = () => {
     };
     fetchBreweries();
   }, []);
-  return { breweries, loading, error };
+  return { breweries, breweriesLoading, error };
 };

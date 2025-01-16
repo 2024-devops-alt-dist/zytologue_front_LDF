@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { useBreweryAPI } from '../hooks/useBreweryApi';
 
 const BreweryList: React.FC = () => {
-  const { breweries, loading, error } = useBreweryAPI();
+  const { breweries, breweriesLoading, error } = useBreweryAPI();
   const navigate = useNavigate();
 
-  if (loading) return <div>Loading...</div>;
+  if (breweriesLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
