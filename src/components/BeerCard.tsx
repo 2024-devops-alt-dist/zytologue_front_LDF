@@ -6,9 +6,9 @@ interface BeerCardProps {
   abv: number;
   colour: string;
   body: string;
-  bitterness: string;
+  bitternes: number;
   release_date: string;
-  category: string;
+  id_category: number;
   photourl: string;
   description?: string;
   onClick?: (id: number) => void;
@@ -20,28 +20,50 @@ const BeerCard: React.FC<BeerCardProps> = ({
   abv,
   colour,
   body,
-  bitterness,
+  bitternes,
   release_date,
-  category,
   photourl,
   description,
   onClick,
 }) => {
+  const formattedDate = new Date(release_date).toLocaleDateString('es-ES', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
   return (
-    <div className="card" onClick={() => onClick && onClick(id)}>
-      <img src={photourl} alt={beer_name} />
-      <div>
-        <h2>{beer_name}</h2>
-        <p>{abv}</p>
-        <p>{colour}</p>
-        <p>{body}</p>
-        <p>{bitterness}</p>
-        <p>{category}</p>
-        <p>{release_date}</p>
-        <p>{category}</p>
-        {description && <p>{description}</p>}
-        <p>{id}</p>
-        <p></p>
+    <div
+      className="card lg:card-side bg-base-100 shadow-xl"
+      onClick={() => onClick && onClick(id)}
+    >
+      <figure>
+        <img src={photourl} alt={beer_name} />
+      </figure>
+      <div className="card-body">
+        <h2 className="card-title">{beer_name}</h2>
+        <p>
+          <strong>ABV:</strong> {abv}%
+        </p>
+        <p>
+          <strong>Colour:</strong> {colour}
+        </p>
+        <p>
+          <strong>Body:</strong> {body}
+        </p>
+        <p>
+          <strong>Bitterness:</strong> {bitternes}
+        </p>
+        <p>
+          <strong>Release Date:</strong> {formattedDate}
+        </p>
+        {description && (
+          <p>
+            <strong>Description:</strong> {description}
+          </p>
+        )}
+        <div className="card-actions justify-end">
+          <button className="btn btn-primary">More Info</button>
+        </div>
       </div>
     </div>
   );
