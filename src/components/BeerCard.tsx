@@ -21,8 +21,12 @@ const BeerCard: React.FC<BeerCardProps> = ({
 }) => {
   return (
     <div className="card lg:card-side bg-base-100 shadow-xl">
-      <figure>
-        <img src={photourl} alt={beer_name} />
+      <figure className="w-48 h-48">
+        <img
+          src={photourl}
+          alt={beer_name}
+          className="w-full h-full object-cover rounded-lg"
+        />
       </figure>
       <div className="card-body">
         <h2 className="card-title">{beer_name}</h2>
