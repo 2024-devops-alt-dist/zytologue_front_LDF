@@ -1,7 +1,53 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Header: React.FC = () => {
+  const [search, setSearch] = useState('');
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [data, setData] = useState<{ name: string }[]>([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const beerResponse = await fetch('http://localhost:3000/beers');
+        const breweryResponse = await fetch('http://localhost:3000/breweries');
+        const beerData = await beerResponse.json();
+        const breweryData = await breweryResponse.json();
+        setData([...beerData, ...breweryData]);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearch(value);
+    if (value.trim() === '' || data.length === 0) {
+      setSuggestions([]);
+      return;
+    }
+    const filtered = data
+      .filter(item => item.name.toLowerCase().includes(value.toLowerCase()))
+      .map(item => item.name);
+    setSuggestions(filtered.slice(0, 5));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (search.trim() !== '') {
+      navigate(`/search?query=${search}`);
+    }
+  };
+
+  const handleSuggestionClick = (suggestion: string) => {
+    setSearch(suggestion);
+    setSuggestions([]);
+    navigate(`/search?query=${suggestion}`);
+  };
+
   return (
     <div className="navbar bg-neutral-800 text-white">
       <div className="navbar-start">
@@ -43,23 +89,35 @@ const Header: React.FC = () => {
           Zytologues by Luchito
         </Link>
       </div>
+
       <div className="navbar-end">
-        <button className="btn btn-ghost btn-circle">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
-        </button>
+        <form onSubmit={handleSubmit} className="flex gap-2">
+          <input
+            type="text"
+            placeholder="Search beers..."
+            className="input input-bordered input-sm text-white"
+            value={search}
+            onChange={handleChange}
+          />
+          <button type="submit" className="btn btn-primary btn-sm">
+            🔍
+          </button>
+        </form>
+
+        {suggestions.length > 0 && (
+          <ul className="absolute top-10 right-0 bg-white text-black w-52 rounded-lg shadow-lg z-10">
+            {suggestions.map((suggestion, index) => (
+              <li
+                key={index}
+                className="px-4 py-2 cursor-pointer hover:bg-gray-200"
+                onClick={() => handleSuggestionClick(suggestion)}
+              >
+                {suggestion}
+              </li>
+            ))}
+          </ul>
+        )}
+
         <button className="btn btn-ghost btn-circle">
           <div className="indicator">
             <svg
