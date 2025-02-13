@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { getBeers } from '../services/beerService';
+import { getBreweries } from '../services/breweryService';
+import { BeerCardProps } from '../components/BeerCard';
+import { BreweryCardProps } from '../components/BreweryCard';
 
 const Header: React.FC = () => {
   const [search, setSearch] = useState('');
@@ -10,18 +14,25 @@ const Header: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const beerResponse = await fetch('http://localhost:3000/beers');
-        const breweryResponse = await fetch('http://localhost:3000/breweries');
-        const beerData = await beerResponse.json();
-        const breweryData = await breweryResponse.json();
-        setData([...beerData, ...breweryData]);
+        const beerResponse = await getBeers();
+        const breweryResponse = await getBreweries();
+        const beers = beerResponse.data.map((item: BeerCardProps) => ({
+          name: item.beer_name,
+        }));
+
+        const breweries = breweryResponse.data.map(
+          (item: BreweryCardProps) => ({
+            name: item.brewery_name,
+          })
+        );
+
+        setData([...beers, ...breweries]);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
     fetchData();
   }, []);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearch(value);
@@ -90,7 +101,7 @@ const Header: React.FC = () => {
         </Link>
       </div>
 
-      <div className="navbar-end">
+      <div className="navbar-end relative">
         <form onSubmit={handleSubmit} className="flex gap-2">
           <input
             type="text"
@@ -105,7 +116,7 @@ const Header: React.FC = () => {
         </form>
 
         {suggestions.length > 0 && (
-          <ul className="absolute top-10 right-0 bg-white text-black w-52 rounded-lg shadow-lg z-10">
+          <ul className="absolute top-full left-0 bg-white text-black w-52 rounded-lg shadow-lg z-10">
             {suggestions.map((suggestion, index) => (
               <li
                 key={index}

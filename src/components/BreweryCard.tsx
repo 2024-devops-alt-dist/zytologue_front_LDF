@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface BreweryCardProps {
+export interface BreweryCardProps {
   id_brewery: number;
   brewery_name: string;
   country: string;

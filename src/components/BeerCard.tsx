@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface BeerCardProps {
+export interface BeerCardProps {
   id_beer: number;
   beer_name: string;
   abv?: number;
