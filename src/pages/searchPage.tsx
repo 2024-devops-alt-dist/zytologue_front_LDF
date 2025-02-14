@@ -16,6 +16,7 @@ const SearchPage: React.FC = () => {
       brewery_name: string;
       country: string;
       city: string;
+      brewery_photourl: string;
     }[]
   >([]);
 

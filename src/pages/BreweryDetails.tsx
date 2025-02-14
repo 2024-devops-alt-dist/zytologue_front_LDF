@@ -30,55 +30,64 @@ const BreweryDetails: React.FC = () => {
   );
 
   return (
-    <div className="card lg:card-side bg-base-100 shadow-xl">
-      <div className="card-body">
-        <h2 className="card-title">{brewery.brewery_name}</h2>
-        <p>
-          <strong>Name:</strong> {brewery.brewery_name}%
-        </p>
-        <p>
-          <strong>Region:</strong> {brewery.region}
-        </p>
-        <p>
-          <strong>Country:</strong> {brewery.country}
-        </p>
-        <p>
-          <strong>City:</strong> {brewery.city}
-        </p>
-        <p>
-          <strong>Address:</strong> {brewery.adress}
-        </p>
-        <p>
-          <strong>Inauguration Date:</strong> {formattedDate}
-        </p>
-        <div className="card-actions justify-end">
-          <button
-            className="btn btn-primary"
-            onClick={() => navigate('/breweries')}
-          >
-            Back to brewery list
-          </button>
-        </div>
+    <div>
+      <div className="card lg:card-side bg-base-100 shadow-xl">
+        <figure>
+          <img
+            src={brewery.brewery_photourl}
+            alt={brewery.brewery_name}
+            className="w-full h-full object-cover rounded-lg"
+          />
+        </figure>
         <div className="card-body">
-          <h3 className="text-xl font-bold">Beers from this Brewery:</h3>
-          {breweryBeers.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {breweryBeers.map(beer => (
-                <BeerCard
-                  key={beer.id_beer}
-                  id_beer={beer.id_beer}
-                  beer_name={beer.beer_name}
-                  abv={beer.abv}
-                  bitternes={beer.bitternes}
-                  photourl={beer.photourl}
-                  onClick={() => navigate(`/beers/${beer.id_beer}`)}
-                />
-              ))}
-            </div>
-          ) : (
-            <p>No beers found for this brewery.</p>
-          )}
+          <h2 className="card-title">{brewery.brewery_name}</h2>
+          <p>
+            <strong>Name:</strong> {brewery.brewery_name}%
+          </p>
+          <p>
+            <strong>Region:</strong> {brewery.region}
+          </p>
+          <p>
+            <strong>Country:</strong> {brewery.country}
+          </p>
+          <p>
+            <strong>City:</strong> {brewery.city}
+          </p>
+          <p>
+            <strong>Address:</strong> {brewery.adress}
+          </p>
+          <p>
+            <strong>Inauguration Date:</strong> {formattedDate}
+          </p>
+          <div className="card-actions justify-end">
+            <button
+              className="btn btn-primary"
+              onClick={() => navigate('/breweries')}
+            >
+              Back to brewery list
+            </button>
+          </div>
         </div>
+      </div>
+      <div className="card-body">
+        <h3 className="text-xl font-bold">Beers from this Brewery:</h3>
+        {breweryBeers.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {breweryBeers.map(beer => (
+              <BeerCard
+                key={beer.id_beer}
+                id_beer={beer.id_beer}
+                beer_name={beer.beer_name}
+                abv={beer.abv}
+                bitternes={beer.bitternes}
+                photourl={beer.photourl}
+                onClick={() => navigate(`/beers/${beer.id_beer}`)}
+              />
+            ))}
+          </div>
+        ) : (
+          <p>No beers found for this brewery.</p>
+        )}
       </div>
     </div>
   );

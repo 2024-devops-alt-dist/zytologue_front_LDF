@@ -19,6 +19,7 @@ const BreweryList: React.FC = () => {
           brewery_name={brewery.brewery_name}
           country={brewery.country}
           city={brewery.city}
+          brewery_photourl={brewery.brewery_photourl}
           onClick={() => navigate(`/breweries/${brewery.id_brewery}`)}
         />
       ))}

@@ -9,6 +9,7 @@ interface Brewery {
   city: string;
   adress: string;
   inauguration_date: string;
+  brewery_photourl: string;
   onClick?: (id: number) => void;
 }
 
